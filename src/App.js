@@ -1,21 +1,16 @@
-import { useState } from "react";
+import { useState } from "react"
+import { useSelector, useDispatch } from "react-redux"
 
 function App() {
-  const [value, setValue] = useState("");
+  const [value, setValue] = useState("")
+  const { test } = useSelector((state) => state.app)
+  console.log("test: ", test)
 
   return (
-    <div className="flex gap-8 justify-center items-center h-screen">
-      <input
-        type="text"
-        className="border-blue-500 border outline-none w-[400px] px-4 py-2"
-        value={value}
-        onChange={(e) => setValue(e.target.value)}
-      />
-      <button className="bg-blue-400 rounded-md px-4 py-2 text-white">
-        Add
-      </button>
+    <div className="flex gap-8 justify-center items-center h-screen text-white">
+      Clone Zingmp3
     </div>
-  );
+  )
 }
 
-export default App;
+export default App
