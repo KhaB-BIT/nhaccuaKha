@@ -1,14 +1,16 @@
-import { useState } from "react"
-import { useSelector, useDispatch } from "react-redux"
+import { Routes, Route } from "react-router-dom"
+import { Home, Login, Public } from "./containers/public"
+import path from "./ultis/path"
 
 function App() {
-  const [value, setValue] = useState("")
-  const { test } = useSelector((state) => state.app)
-  console.log("test: ", test)
-
   return (
     <div className="flex gap-8 justify-center items-center h-screen text-white">
-      Clone Zingmp3
+      <Routes>
+        <Route path={path.PUBLIC} element={<Public />}>
+          <Route path={path.HOME} element={<Home />} />
+          <Route path={path.LOGIN} element={<Login />} />
+        </Route>
+      </Routes>
     </div>
   )
 }
