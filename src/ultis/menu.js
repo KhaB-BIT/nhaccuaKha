@@ -20,11 +20,6 @@ export const sidebarMenu = [
         icon: <TbChartArcs size={24} />,
     },
     {
-        path: "/radio",
-        text: "Radio",
-        icon: <MdOutlineFeed size={24} />,
-    },
-    {
         path: "/follow",
         text: "Theo dõi",
         icon: <MdOutlineFeed size={24} />,

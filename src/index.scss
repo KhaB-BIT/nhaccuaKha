@@ -1,0 +1,38 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+body {
+    background-color: #170f23;
+    color: white;
+}
+
+// slider in home
+.swiper {
+    .swiper-button-prev,
+    .swiper-button-next {
+        display: none;
+    }
+    .swiper-button-next:after,
+    .swiper-button-prev:after {
+        font-size: 22px;
+    }
+
+    .swiper-button-disabled {
+        display: none !important;
+    }
+
+    &:hover {
+        .swiper-button-prev,
+        .swiper-button-next {
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            color: white;
+            border-radius: 50%;
+            width: 44px;
+            background-color: hsla(0, 0%, 100%, 0.2);
+            box-shadow: 0 2px 4px 0 rgb(226 102 102 / 15%);
+        }
+    }
+}
