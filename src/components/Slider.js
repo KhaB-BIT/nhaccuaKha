@@ -13,6 +13,7 @@ const Slider = () => {
     const handleClickBanner = (item) => {
         if (item?.type === 1) {
             dispatch(actions.setCurSongId(item.encodeId))
+            dispatch(actions.play(true))
         }
     }
 
@@ -24,7 +25,6 @@ const Slider = () => {
                 slidesPerView={3}
                 navigation
                 autoplay
-                onSwiper={(swiper) => console.log(swiper)}
             >
                 {banner.map((item, index) => {
                     return (

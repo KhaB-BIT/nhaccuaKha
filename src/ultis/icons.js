@@ -25,6 +25,8 @@ import {
     BsDot,
 } from "react-icons/bs"
 import { CiRepeat, CiShuffle } from "react-icons/ci"
+import { FiMoreHorizontal } from "react-icons/fi"
+import { FaRandom } from "react-icons/fa"
 
 const icons = {
     MdOutlineLibraryMusic,
@@ -47,6 +49,8 @@ const icons = {
     BsPauseFill,
     BsMusicNoteBeamed,
     BsDot,
+    FiMoreHorizontal,
+    FaRandom,
 }
 
 export default icons

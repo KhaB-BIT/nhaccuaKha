@@ -12,7 +12,7 @@ const Public = () => {
                 <div className="flex-auto">
                     <Outlet />
                 </div>
-                <div className="w-[330px]">
+                <div className="w-[330px] hidden laptop:block animate-slide-left">
                     <SidebarRight />
                 </div>
             </div>
