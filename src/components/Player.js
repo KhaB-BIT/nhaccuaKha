@@ -1,24 +1,29 @@
 import React, { useEffect, useState } from "react"
 import { TbPlayerSkipBack, TbPlayerSkipForward } from "react-icons/tb"
-import { useSelector } from "react-redux"
+import { useDispatch, useSelector } from "react-redux"
 import * as apis from "../apis"
 import icons from "../ultis/icons"
 import { CgPlayButtonO, CgPlayPauseO } from "react-icons/cg"
 import { FiRepeat } from "react-icons/fi"
 import { BsShuffle } from "react-icons/bs"
+import * as actions from "../store/actions"
 
 const { AiOutlineHeart, FiMoreHorizontal } = icons
 
 const Player = () => {
+    const dispatch = useDispatch()
     const { curSongId, isPlaying } = useSelector((state) => state.music)
     const [songInfo, setSongInfo] = useState(null)
     const [source, setSource] = useState(null)
+    const audio = new Audio(
+        "https://vnso-zn-5-tf-mp3-s1-m-zmp3.zmdcdn.me/fccddbdc879c6ec2378d/1844875035517372163?authen=exp=1670648886~acl=/fccddbdc879c6ec2378d/*~hmac=8d0ffa95ba7210e499987fe3bda1d9e1"
+    )
 
     useEffect(() => {
         const fetchDetailSong = async () => {
             const [res1, res2] = await Promise.all([
-                apis.getDetailSong(curSongId),
-                apis.getSong(curSongId),
+                apis.apiGetDetailSong(curSongId),
+                apis.apiGetSong(curSongId),
             ])
 
             if (res1.data.err === 0) {
@@ -33,11 +38,12 @@ const Player = () => {
     }, [curSongId])
 
     useEffect(() => {
-        const audio = new Audio(source)
-        audio.play()
+        //audio?.play()
     }, [curSongId])
 
-    const handlePlayMusic = () => {}
+    const handlePlayMusic = () => {
+        dispatch(actions.play(!isPlaying))
+    }
 
     return (
         <div className=" flex h-[90px] bg-[#170f23]">

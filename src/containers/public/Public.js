@@ -1,15 +1,16 @@
 import React from "react"
 import { Outlet } from "react-router-dom"
-import { Player, SidebarLeft, SidebarRight } from "../../components"
+import { Header, Player, SidebarLeft, SidebarRight } from "../../components"
 
 const Public = () => {
     return (
-        <div className="overflow-y-auto">
+        <div className="overflow-y-auto h-screen">
             <div className="w-full flex">
                 <div className="w-[240px]">
                     <SidebarLeft />
                 </div>
                 <div className="flex-auto">
+                    <Header />
                     <Outlet />
                 </div>
                 <div className="w-[330px] hidden laptop:block animate-slide-left">

@@ -1,5 +1,6 @@
 import React from "react"
 import { useDispatch, useSelector } from "react-redux"
+import { useNavigate } from "react-router-dom"
 import { Navigation, Autoplay } from "swiper"
 import "swiper/css"
 import "swiper/css/navigation"
@@ -9,11 +10,16 @@ import * as actions from "../store/actions"
 const Slider = () => {
     const { banner } = useSelector((state) => state.app)
     const dispatch = useDispatch()
+    const navigate = useNavigate()
 
     const handleClickBanner = (item) => {
         if (item?.type === 1) {
             dispatch(actions.setCurSongId(item.encodeId))
             dispatch(actions.play(true))
+        }
+        if (item?.type === 4) {
+            const arr = item?.link?.split(".")[0].split("/")
+            navigate(`album/${arr[2]}/${arr[3]}`)
         }
     }
 
