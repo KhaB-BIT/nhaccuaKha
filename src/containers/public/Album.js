@@ -39,15 +39,20 @@ const Album = () => {
                     {dataAlbum?.like} người yêu thích
                 </h3>
             </div>
-            <div className="w-[70%] h-[calc(100vh_-_90px)] overflow-y-scroll pr-10">
+            <div className="w-[70%] h-[calc(100vh_-_90px)] overflow-y-scroll pr-10 pt-[70px]">
                 <h1 className="text-gray-400">{dataAlbum?.sortDescription}</h1>
+                <div className="flex my-4 text-gray-400">
+                    <span className="w-[50%]">BÀI HÁT</span>
+                    <span className="w-[40%]">ALBUM</span>
+                    <span className="w-[10%]">THỜI GIAN</span>
+                </div>
                 {dataAlbum?.song?.items.map((item, index) => {
                     return (
                         <div
                             key={index}
-                            className="flex justify-between items-center py-3 "
+                            className="flex justify-between items-center py-3 border-t border-t-gray-600 cursor-pointer"
                         >
-                            <div className="flex items-center gap-5">
+                            <div className="flex items-center gap-5 w-[50%]">
                                 <img
                                     src={item.thumbnail}
                                     alt="thumnail"
@@ -55,12 +60,19 @@ const Album = () => {
                                 />
                                 <div className="flex flex-col">
                                     <span>{item.title}</span>
-                                    <span className="text-gray-400">
+                                    <span className="text-gray-400 text-sm text">
                                         {item.artistsNames}
                                     </span>
                                 </div>
                             </div>
-                            <span className="text-gray-400">03:02</span>
+                            <span className="text-gray-400 w-[40%] text-sm">
+                                {item?.album?.title}
+                            </span>
+                            <span className="text-gray-400 w-[10%] text-sm">
+                                {moment
+                                    .utc(item.duration * 1000)
+                                    .format("mm:ss")}
+                            </span>
                         </div>
                     )
                 })}

@@ -62,7 +62,7 @@ module.exports = {
             },
         },
         screens: {
-            laptop: "1500px",
+            laptop: "1600px",
         },
     },
     plugins: [],

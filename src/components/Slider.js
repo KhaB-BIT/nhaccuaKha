@@ -34,7 +34,7 @@ const Slider = () => {
             >
                 {banner.map((item, index) => {
                     return (
-                        <SwiperSlide key={index}>
+                        <SwiperSlide key={index} className="cursor-pointer">
                             <img
                                 src={item.banner}
                                 alt={item.link}
