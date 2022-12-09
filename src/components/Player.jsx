@@ -7,16 +7,17 @@ import { CgPlayButtonO, CgPlayPauseO } from "react-icons/cg"
 import { FiRepeat } from "react-icons/fi"
 import { BsShuffle } from "react-icons/bs"
 import * as actions from "../store/actions"
+import moment from "moment"
 
 const { AiOutlineHeart, FiMoreHorizontal } = icons
+let interval
 
 const Player = () => {
     const dispatch = useDispatch()
     const { curSongId, isPlaying } = useSelector((state) => state.music)
     const [songInfo, setSongInfo] = useState(null)
-    const [source, setSource] = useState(null)
-
-    const audio = useRef(new Audio())
+    const [audio, setAudio] = useState(new Audio())
+    const thumbRef = useRef()
 
     useEffect(() => {
         const fetchDetailSong = async () => {
@@ -30,27 +31,40 @@ const Player = () => {
             }
 
             if (res2.data.err === 0) {
-                setSource(res2.data.data["128"])
+                audio.pause()
+                setAudio(new Audio(res2.data.data["128"]))
             }
         }
         fetchDetailSong()
     }, [curSongId])
 
     useEffect(() => {
-        audio.current.pause()
-        audio.current.src = source
-        audio.current.load()
+        audio.load()
         if (isPlaying) {
-            audio.current.play()
+            audio.play()
         }
-    }, [curSongId, source])
+    }, [audio])
+
+    useEffect(() => {
+        if (isPlaying) {
+            interval = setInterval(() => {
+                let percent =
+                    Math.round(
+                        (audio.currentTime * 10000) / songInfo.duration
+                    ) / 100
+                thumbRef.current.style.cssText = `right: ${100 - percent}%`
+            }, 1000)
+        } else {
+            clearInterval(interval)
+        }
+    }, [isPlaying])
 
     const handlePlayMusic = () => {
         if (isPlaying) {
-            audio.current.pause()
+            audio.pause()
             dispatch(actions.play(false))
         } else {
-            audio.current.play()
+            audio.play()
             dispatch(actions.play(true))
         }
     }
@@ -104,9 +118,15 @@ const Player = () => {
                     </span>
                 </div>
                 <div className="flex gap-4 items-center">
-                    <span>1:53</span>
-                    <div className="flex-1 h-1 bg-slate-300"></div>
-                    <span>4:53</span>
+                    <div className="flex-1 relative h-1 bg-slate-300 rounded-md w-10">
+                        <div
+                            ref={thumbRef}
+                            className="bg-green-600 h-1 rounded-md absolute left-0"
+                        ></div>
+                    </div>
+                    <span>
+                        {moment.utc(songInfo.duration * 1000).format("mm:ss")}
+                    </span>
                 </div>
             </div>
             <div className="w-[30%]">Something</div>
