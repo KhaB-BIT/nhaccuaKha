@@ -24,7 +24,7 @@ const Slider = () => {
     }
 
     return (
-        <div className="w-[1000px] px-5">
+        <div className="w-[calc(100vw_-_240px)] laptop:w-[calc(100vw_-_570px)] px-5">
             <Swiper
                 modules={[Navigation, Autoplay]}
                 spaceBetween={30}

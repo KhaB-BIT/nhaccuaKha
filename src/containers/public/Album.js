@@ -2,10 +2,14 @@ import React, { useEffect, useState } from "react"
 import { useParams } from "react-router-dom"
 import * as apis from "../../apis"
 import moment from "moment"
+import { RxDotFilled } from "react-icons/rx"
+import { useDispatch } from "react-redux"
+import * as actions from "../../store/actions"
 
 const Album = () => {
     const { pid } = useParams()
     const [dataAlbum, setDataAlbum] = useState(null)
+    const dispatch = useDispatch()
     console.log(dataAlbum)
 
     useEffect(() => {
@@ -15,6 +19,11 @@ const Album = () => {
         }
         fetchDataPlaylist()
     }, [pid])
+
+    const handleClickListAlbum = (sid) => {
+        dispatch(actions.setCurSongId(sid))
+        dispatch(actions.play(true))
+    }
 
     return (
         <div className="flex gap-10 pl-10">
@@ -39,7 +48,7 @@ const Album = () => {
                     {dataAlbum?.like} người yêu thích
                 </h3>
             </div>
-            <div className="w-[70%] h-[calc(100vh_-_90px)] overflow-y-scroll pr-10 pt-[70px]">
+            <div className="w-[70%] h-[calc(100vh_-_90px)] overflow-y-scroll pr-10 py-[70px]">
                 <h1 className="text-gray-400">{dataAlbum?.sortDescription}</h1>
                 <div className="flex my-4 text-gray-400">
                     <span className="w-[50%]">BÀI HÁT</span>
@@ -50,7 +59,8 @@ const Album = () => {
                     return (
                         <div
                             key={index}
-                            className="flex justify-between items-center py-3 border-t border-t-gray-600 cursor-pointer"
+                            onClick={() => handleClickListAlbum(item.encodeId)}
+                            className="flex justify-between items-center py-3 border-t border-t-gray-600 cursor-pointer hover:bg-gray-600"
                         >
                             <div className="flex items-center gap-5 w-[50%]">
                                 <img
@@ -76,6 +86,18 @@ const Album = () => {
                         </div>
                     )
                 })}
+
+                <h6 className="text-sm flex gap-1 items-center text-gray-400">
+                    <span>{dataAlbum?.song?.total} bài hát</span>
+                    <span>
+                        <RxDotFilled />
+                    </span>
+                    <span>
+                        {moment
+                            .utc(dataAlbum?.song?.totalDuration * 1000)
+                            .format("HH:mm:ss")}
+                    </span>
+                </h6>
             </div>
         </div>
     )

@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from "react"
+import React, { useEffect, useRef, useState } from "react"
 import { TbPlayerSkipBack, TbPlayerSkipForward } from "react-icons/tb"
 import { useDispatch, useSelector } from "react-redux"
 import * as apis from "../apis"
@@ -15,9 +15,8 @@ const Player = () => {
     const { curSongId, isPlaying } = useSelector((state) => state.music)
     const [songInfo, setSongInfo] = useState(null)
     const [source, setSource] = useState(null)
-    const audio = new Audio(
-        "https://vnso-zn-5-tf-mp3-s1-m-zmp3.zmdcdn.me/fccddbdc879c6ec2378d/1844875035517372163?authen=exp=1670648886~acl=/fccddbdc879c6ec2378d/*~hmac=8d0ffa95ba7210e499987fe3bda1d9e1"
-    )
+
+    const audio = useRef(new Audio())
 
     useEffect(() => {
         const fetchDetailSong = async () => {
@@ -38,11 +37,22 @@ const Player = () => {
     }, [curSongId])
 
     useEffect(() => {
-        //audio?.play()
-    }, [curSongId])
+        audio.current.pause()
+        audio.current.src = source
+        audio.current.load()
+        if (isPlaying) {
+            audio.current.play()
+        }
+    }, [curSongId, source])
 
     const handlePlayMusic = () => {
-        dispatch(actions.play(!isPlaying))
+        if (isPlaying) {
+            audio.current.pause()
+            dispatch(actions.play(false))
+        } else {
+            audio.current.play()
+            dispatch(actions.play(true))
+        }
     }
 
     return (
