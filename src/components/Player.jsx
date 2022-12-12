@@ -17,6 +17,7 @@ const Player = () => {
     const { curSongId, isPlaying } = useSelector((state) => state.music)
     const [songInfo, setSongInfo] = useState(null)
     const [audio, setAudio] = useState(new Audio())
+    const [currentSecond, setCurrentSecond] = useState(0)
     const thumbRef = useRef()
 
     useEffect(() => {
@@ -50,9 +51,10 @@ const Player = () => {
             interval = setInterval(() => {
                 let percent =
                     Math.round(
-                        (audio.currentTime * 10000) / songInfo.duration
+                        (audio.currentTime * 10000) / songInfo?.duration
                     ) / 100
                 thumbRef.current.style.cssText = `right: ${100 - percent}%`
+                setCurrentSecond(Math.round(audio.currentTime))
             }, 1000)
         } else {
             clearInterval(interval)
@@ -118,6 +120,9 @@ const Player = () => {
                     </span>
                 </div>
                 <div className="flex gap-4 items-center">
+                    <span>
+                        {moment.utc(currentSecond * 1000).format("mm:ss")}
+                    </span>
                     <div className="flex-1 relative h-1 bg-slate-300 rounded-md w-10">
                         <div
                             ref={thumbRef}
@@ -125,7 +130,7 @@ const Player = () => {
                         ></div>
                     </div>
                     <span>
-                        {moment.utc(songInfo.duration * 1000).format("mm:ss")}
+                        {moment.utc(songInfo?.duration * 1000).format("mm:ss")}
                     </span>
                 </div>
             </div>
