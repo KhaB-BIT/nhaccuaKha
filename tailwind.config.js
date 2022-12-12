@@ -9,6 +9,7 @@ module.exports = {
                 "main-300": "#CED9D9",
                 "main-400": "#C0D8D8",
                 "main-500": "#0E8080",
+                "overlay-30": "rgba(0,0,0,0.3)",
             },
             colors: {
                 "main-100": "#E7ECEC",
@@ -57,7 +58,10 @@ module.exports = {
                     },
                 },
                 "spin-to-end": {
-                    "0%": {},
+                    "0%": {
+                        transform: "rotate(0deg)",
+                        "border-radius": "1000px",
+                    },
 
                     "100%": {
                         transform: "rotate(360deg)",
@@ -72,7 +76,7 @@ module.exports = {
                 "slide-left2":
                     "slide-left2 0.5s cubic-bezier(0.250, 0.460, 0.450, 0.940) both;",
                 "spin-start": "spin-to-start 12s linear infinite",
-                "spin-end": "spin-to-end 0.8s linear",
+                "spin-end": "spin-to-end 1s linear 1 both",
             },
             flex: {
                 4: "4 4 0%",

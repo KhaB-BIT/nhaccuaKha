@@ -6,6 +6,7 @@ import { RxDotFilled } from "react-icons/rx"
 import { useDispatch, useSelector } from "react-redux"
 import * as actions from "../../store/actions"
 import ListSong from "../../components/ListSong"
+import AudioPlaying from "../../components/AudioPlaying"
 
 const Album = () => {
     const { pid } = useParams()
@@ -29,17 +30,24 @@ const Album = () => {
             <div className="w-[30%]">
                 <div
                     ref={cdRef}
-                    className={`overflow-hidden w-[320px] h-[320px] rounded-xl animate transition-all ease-in-out duration-500 ${
-                        isPlaying
-                            ? "rounded-full animate-spin-start"
-                            : "rounded-full animate-spin-end"
-                    }`}
+                    className="overflow-hidden w-[320px] h-[320px] relative"
                 >
                     <img
                         src={dataAlbum?.thumbnailM}
                         alt="album"
-                        className="rounded-lg"
+                        className={`hover:scale-110 ${
+                            isPlaying
+                                ? "rounded-full animate-spin-start"
+                                : "rounded-md animate-spin-end"
+                        }`}
                     />
+                    <div
+                        className={`absolute top-0 left-0 right-0 bottom-0 hover:bg-overlay-30 ${
+                            isPlaying && "rounded-full"
+                        }`}
+                    >
+                        {isPlaying && <AudioPlaying />}
+                    </div>
                 </div>
                 <h1 className="font-semibold text-center mt-4 text-2xl">
                     {dataAlbum?.title}
