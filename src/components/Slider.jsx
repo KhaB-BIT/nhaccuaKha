@@ -13,14 +13,16 @@ const Slider = () => {
     const navigate = useNavigate()
 
     const handleClickBanner = (item) => {
-        console.log("item: ", item)
         if (item?.type === 1) {
             dispatch(actions.setCurSongId(item.encodeId))
             dispatch(actions.play(true))
+            dispatch(actions.playAlbum(false))
         }
         if (item?.type === 4) {
             const path = item?.link?.split(".")[0]
             navigate(path)
+        } else {
+            dispatch(actions.playAlbum(false))
         }
     }
 

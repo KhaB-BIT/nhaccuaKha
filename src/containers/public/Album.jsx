@@ -1,38 +1,46 @@
-import React, { useEffect, useState } from "react"
+import React, { useEffect, useRef, useState } from "react"
 import { useParams } from "react-router-dom"
 import * as apis from "../../apis"
 import moment from "moment"
 import { RxDotFilled } from "react-icons/rx"
-import { useDispatch } from "react-redux"
+import { useDispatch, useSelector } from "react-redux"
 import * as actions from "../../store/actions"
+import ListSong from "../../components/ListSong"
 
 const Album = () => {
     const { pid } = useParams()
     const [dataAlbum, setDataAlbum] = useState(null)
     const dispatch = useDispatch()
-    console.log(dataAlbum)
+    const { isPlaying } = useSelector((state) => state.music)
+    const cdRef = useRef()
 
     useEffect(() => {
         const fetchDataPlaylist = async () => {
             const response = await apis.apiGetDetailPlaylist(pid)
             setDataAlbum(response.data.data)
+            const playList = response?.data.data.song.items
+            dispatch(actions.setPlayList(playList))
         }
         fetchDataPlaylist()
     }, [pid])
 
-    const handleClickListAlbum = (sid) => {
-        dispatch(actions.setCurSongId(sid))
-        dispatch(actions.play(true))
-    }
-
     return (
         <div className="flex gap-10 pl-10">
             <div className="w-[30%]">
-                <img
-                    src={dataAlbum?.thumbnailM}
-                    alt="album"
-                    className="rounded-lg"
-                />
+                <div
+                    ref={cdRef}
+                    className={`overflow-hidden w-[320px] h-[320px] rounded-xl animate transition-all ease-in-out duration-500 ${
+                        isPlaying
+                            ? "rounded-full animate-spin-start"
+                            : "rounded-full animate-spin-end"
+                    }`}
+                >
+                    <img
+                        src={dataAlbum?.thumbnailM}
+                        alt="album"
+                        className="rounded-lg"
+                    />
+                </div>
                 <h1 className="font-semibold text-center mt-4 text-2xl">
                     {dataAlbum?.title}
                 </h1>
@@ -55,49 +63,7 @@ const Album = () => {
                     <span className="w-[40%]">ALBUM</span>
                     <span className="w-[10%]">THỜI GIAN</span>
                 </div>
-                {dataAlbum?.song?.items.map((item, index) => {
-                    return (
-                        <div
-                            key={index}
-                            onClick={() =>
-                                item.isWorldWide
-                                    ? handleClickListAlbum(item.encodeId)
-                                    : ""
-                            }
-                            className={`flex justify-between items-center py-3 border-t border-t-gray-600 ${
-                                item.isWorldWide
-                                    ? "cursor-pointer hover:bg-gray-600"
-                                    : "cursor-not-allowed"
-                            } `}
-                        >
-                            <div className="flex items-center gap-5 w-[50%]">
-                                <img
-                                    src={item.thumbnail}
-                                    alt="thumnail"
-                                    className="w-[50px] h-[50px] rounded-md"
-                                />
-                                <div className="flex flex-col">
-                                    <span>
-                                        {item.title}{" "}
-                                        {!item.isWorldWide ? "- VIP" : ""}
-                                    </span>
-                                    <span className="text-gray-400 text-sm text">
-                                        {item.artistsNames}
-                                    </span>
-                                </div>
-                            </div>
-                            <span className="text-gray-400 w-[40%] text-sm">
-                                {item?.album?.title}
-                            </span>
-                            <span className="text-gray-400 w-[10%] text-sm">
-                                {moment
-                                    .utc(item.duration * 1000)
-                                    .format("mm:ss")}
-                            </span>
-                        </div>
-                    )
-                })}
-
+                <ListSong />
                 <h6 className="text-sm flex gap-1 items-center text-gray-400">
                     <span>{dataAlbum?.song?.total} bài hát</span>
                     <span>

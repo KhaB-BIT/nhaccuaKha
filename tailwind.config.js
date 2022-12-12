@@ -48,6 +48,21 @@ module.exports = {
                         transform: "translateX(0);",
                     },
                 },
+                "spin-to-start": {
+                    "0%": {
+                        transform: "rotate(0deg)",
+                    },
+                    "100%": {
+                        transform: "rotate(360deg)",
+                    },
+                },
+                "spin-to-end": {
+                    "0%": {},
+
+                    "100%": {
+                        transform: "rotate(360deg)",
+                    },
+                },
             },
             animation: {
                 "slide-right":
@@ -56,6 +71,8 @@ module.exports = {
                     "slide-left 0.5s cubic-bezier(0.250, 0.460, 0.450, 0.940) both;",
                 "slide-left2":
                     "slide-left2 0.5s cubic-bezier(0.250, 0.460, 0.450, 0.940) both;",
+                "spin-start": "spin-to-start 12s linear infinite",
+                "spin-end": "spin-to-end 0.8s linear",
             },
             flex: {
                 4: "4 4 0%",

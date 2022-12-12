@@ -14,7 +14,9 @@ let interval
 
 const Player = () => {
     const dispatch = useDispatch()
-    const { curSongId, isPlaying } = useSelector((state) => state.music)
+    const { curSongId, isPlaying, atAlbum } = useSelector(
+        (state) => state.music
+    )
     const [songInfo, setSongInfo] = useState(null)
     const [audio, setAudio] = useState(new Audio())
     const [currentSecond, setCurrentSecond] = useState(0)
@@ -67,6 +69,8 @@ const Player = () => {
             dispatch(actions.play(true))
         }
     }
+
+    const handleNextSong = () => {}
 
     const handleProgressBar = (e) => {
         const trackRect = trackRef.current.getBoundingClientRect()
@@ -121,7 +125,11 @@ const Player = () => {
                             <CgPlayButtonO size="35px" />
                         )}
                     </span>
-                    <span title="Bài hát tiếp theo" className="cursor-pointer">
+                    <span
+                        onClick={handleNextSong}
+                        title="Bài hát tiếp theo"
+                        className={atAlbum ? "cursor-pointer" : "text-gray-500"}
+                    >
                         <TbPlayerSkipForward size="20px" />
                     </span>
                     <span title="Bật phát tất cả" className="cursor-pointer">
