@@ -4,6 +4,7 @@ import { Route, Routes } from "react-router-dom"
 import { Album, Home, Login, Public } from "./containers/public"
 import * as actions from "./store/actions"
 import path from "./ultis/path"
+import { ToastContainer } from "react-toastify"
 
 function App() {
     const dispatch = useDispatch()
@@ -13,20 +14,37 @@ function App() {
     }, [dispatch])
 
     return (
-        <div>
-            <Routes>
-                <Route path={path.PUBLIC} element={<Public />}>
-                    <Route path={path.HOME} element={<Home />} />
-                    <Route path={path.LOGIN} element={<Login />} />
-                    <Route path={path.ALBUM__TITLE__PID} element={<Album />} />
-                    <Route
-                        path={path.PLAYLIST__TITLE__PID}
-                        element={<Album />}
-                    />
-                    <Route path={path.STAR} element={<Home />} />
-                </Route>
-            </Routes>
-        </div>
+        <>
+            <div>
+                <Routes>
+                    <Route path={path.PUBLIC} element={<Public />}>
+                        <Route path={path.HOME} element={<Home />} />
+                        <Route path={path.LOGIN} element={<Login />} />
+                        <Route
+                            path={path.ALBUM__TITLE__PID}
+                            element={<Album />}
+                        />
+                        <Route
+                            path={path.PLAYLIST__TITLE__PID}
+                            element={<Album />}
+                        />
+                        <Route path={path.STAR} element={<Home />} />
+                    </Route>
+                </Routes>
+            </div>
+            <ToastContainer
+                position="top-right"
+                autoClose={5000}
+                hideProgressBar={false}
+                newestOnTop={false}
+                closeOnClick
+                rtl={false}
+                pauseOnFocusLoss
+                draggable
+                pauseOnHover
+                theme="light"
+            />
+        </>
     )
 }
 

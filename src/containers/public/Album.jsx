@@ -59,8 +59,16 @@ const Album = () => {
                     return (
                         <div
                             key={index}
-                            onClick={() => handleClickListAlbum(item.encodeId)}
-                            className="flex justify-between items-center py-3 border-t border-t-gray-600 cursor-pointer hover:bg-gray-600"
+                            onClick={() =>
+                                item.isWorldWide
+                                    ? handleClickListAlbum(item.encodeId)
+                                    : ""
+                            }
+                            className={`flex justify-between items-center py-3 border-t border-t-gray-600 ${
+                                item.isWorldWide
+                                    ? "cursor-pointer hover:bg-gray-600"
+                                    : "cursor-not-allowed"
+                            } `}
                         >
                             <div className="flex items-center gap-5 w-[50%]">
                                 <img
@@ -69,7 +77,10 @@ const Album = () => {
                                     className="w-[50px] h-[50px] rounded-md"
                                 />
                                 <div className="flex flex-col">
-                                    <span>{item.title}</span>
+                                    <span>
+                                        {item.title}{" "}
+                                        {!item.isWorldWide ? "- VIP" : ""}
+                                    </span>
                                     <span className="text-gray-400 text-sm text">
                                         {item.artistsNames}
                                     </span>

@@ -19,6 +19,7 @@ const Player = () => {
     const [audio, setAudio] = useState(new Audio())
     const [currentSecond, setCurrentSecond] = useState(0)
     const thumbRef = useRef()
+    const trackRef = useRef()
 
     useEffect(() => {
         const fetchDetailSong = async () => {
@@ -40,14 +41,12 @@ const Player = () => {
     }, [curSongId])
 
     useEffect(() => {
+        interval && clearInterval(interval)
+        audio.pause()
         audio.load()
+        audio.currentTime = 0
         if (isPlaying) {
             audio.play()
-        }
-    }, [audio])
-
-    useEffect(() => {
-        if (isPlaying) {
             interval = setInterval(() => {
                 let percent =
                     Math.round(
@@ -56,10 +55,8 @@ const Player = () => {
                 thumbRef.current.style.cssText = `right: ${100 - percent}%`
                 setCurrentSecond(Math.round(audio.currentTime))
             }, 1000)
-        } else {
-            clearInterval(interval)
         }
-    }, [isPlaying])
+    }, [audio])
 
     const handlePlayMusic = () => {
         if (isPlaying) {
@@ -71,8 +68,19 @@ const Player = () => {
         }
     }
 
+    const handleProgressBar = (e) => {
+        const trackRect = trackRef.current.getBoundingClientRect()
+        const percent =
+            Math.round(
+                ((e.clientX - trackRect.left) * 10000) / trackRect.width
+            ) / 100
+        thumbRef.current.style.cssText = `right: ${100 - percent}%`
+        audio.currentTime = (percent * songInfo.duration) / 100
+        setCurrentSecond(Math.round(audio.currentTime))
+    }
+
     return (
-        <div className=" flex h-[90px] bg-[#170f23]">
+        <div className=" flex h-[90px] bg-[#170f23] shadow-myShadow">
             <div className="w-[30%] flex gap-4 items-center p-4">
                 <div>
                     <img
@@ -91,6 +99,7 @@ const Player = () => {
                 </div>
             </div>
             <div className="w-[40%] flex flex-col p-[10px]">
+                {/* control */}
                 <div className="flex justify-around items-center w-[60%] h-[60%] m-auto">
                     <span
                         title="Bật phát ngẫu nhiên"
@@ -119,14 +128,20 @@ const Player = () => {
                         <FiRepeat size="20px" />
                     </span>
                 </div>
+
+                {/* progress */}
                 <div className="flex gap-4 items-center">
                     <span>
                         {moment.utc(currentSecond * 1000).format("mm:ss")}
                     </span>
-                    <div className="flex-1 relative h-1 bg-slate-300 rounded-md w-10">
+                    <div
+                        className="flex-1 relative h-1 hover:h-2 bg-slate-300 rounded-md w-10 cursor-pointer"
+                        onClick={handleProgressBar}
+                        ref={trackRef}
+                    >
                         <div
                             ref={thumbRef}
-                            className="bg-green-600 h-1 rounded-md absolute left-0"
+                            className="bg-green-600 h-full rounded-md absolute left-0"
                         ></div>
                     </div>
                     <span>

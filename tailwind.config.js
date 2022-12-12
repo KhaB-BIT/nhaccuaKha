@@ -60,6 +60,10 @@ module.exports = {
             flex: {
                 4: "4 4 0%",
             },
+            boxShadow: {
+                myShadow:
+                    "rgba(34 34 171 / 0.1) 0px 8px 24px, rgba(34 34 171 / 0.1) 0px 16px 56px, rgba(17, 17, 26, 0.1) 0px 24px 80px",
+            },
         },
         screens: {
             laptop: "1600px",
