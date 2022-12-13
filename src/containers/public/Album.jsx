@@ -26,7 +26,7 @@ const Album = () => {
     }, [pid])
 
     return (
-        <div className="flex gap-10 pl-10">
+        <div className="flex pl-10">
             <div className="w-[30%]">
                 <div
                     ref={cdRef}

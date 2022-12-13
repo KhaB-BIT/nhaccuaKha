@@ -5,24 +5,30 @@ import * as apis from "../apis"
 import icons from "../ultis/icons"
 import { CgPlayButtonO, CgPlayPauseO } from "react-icons/cg"
 import { FiRepeat } from "react-icons/fi"
-import { BsShuffle } from "react-icons/bs"
+import { BsMusicNoteList, BsShuffle } from "react-icons/bs"
 import * as actions from "../store/actions"
 import moment from "moment"
+import SongLoading from "./SongLoading"
+import { HiVolumeOff, HiVolumeUp } from "react-icons/hi"
 
 const { AiOutlineHeart, FiMoreHorizontal } = icons
 let interval
 
-const Player = () => {
+const Player = ({ setShowRightBar }) => {
     const dispatch = useDispatch()
     const { curSongId, isPlaying, songs } = useSelector((state) => state.music)
     const [songInfo, setSongInfo] = useState(null)
     const [audio, setAudio] = useState(new Audio())
     const [currentSecond, setCurrentSecond] = useState(0)
+    const [isLoadedSource, setIsLoadSource] = useState(false)
+    const [volume, setVolume] = useState(100)
+    const [toggleVolume, setToggleVolume] = useState(true)
     const thumbRef = useRef()
     const trackRef = useRef()
 
     useEffect(() => {
         const fetchDetailSong = async () => {
+            setIsLoadSource(false)
             const [res1, res2] = await Promise.all([
                 apis.apiGetDetailSong(curSongId),
                 apis.apiGetSong(curSongId),
@@ -36,6 +42,7 @@ const Player = () => {
                 audio.pause()
                 setAudio(new Audio(res2.data.data["128"]))
             }
+            setIsLoadSource(true)
         }
         fetchDetailSong()
     }, [curSongId])
@@ -52,7 +59,9 @@ const Player = () => {
                     Math.round(
                         (audio.currentTime * 10000) / songInfo?.duration
                     ) / 100
-                thumbRef.current.style.cssText = `right: ${100 - percent}%`
+                if (thumbRef) {
+                    thumbRef.current.style.cssText = `right: ${100 - percent}%`
+                }
                 setCurrentSecond(Math.round(audio.currentTime))
             }, 1000)
         }
@@ -119,6 +128,22 @@ const Player = () => {
         setCurrentSecond(Math.round(audio.currentTime))
     }
 
+    const handleChangeVolumn = (e) => {
+        setVolume(e.target.value)
+        audio.volume = e.target.value / 100
+    }
+
+    const handleToggleVolume = () => {
+        if (toggleVolume) {
+            setVolume(0)
+            audio.volume = 0
+        } else {
+            setVolume(100)
+            audio.volume = 1
+        }
+        setToggleVolume((prev) => !prev)
+    }
+
     return (
         <div className=" flex h-[90px] bg-[#170f23] shadow-myShadow">
             <div className="w-[30%] flex gap-4 items-center p-4">
@@ -138,6 +163,7 @@ const Player = () => {
                     <FiMoreHorizontal />
                 </div>
             </div>
+
             <div className="w-[40%] flex flex-col p-[10px]">
                 {/* control */}
                 <div className="flex justify-around items-center w-[60%] h-[60%] m-auto">
@@ -159,7 +185,9 @@ const Player = () => {
                         className="cursor-pointer"
                         onClick={handlePlayMusic}
                     >
-                        {isPlaying ? (
+                        {!isLoadedSource ? (
+                            <SongLoading />
+                        ) : isPlaying ? (
                             <CgPlayPauseO size="35px" />
                         ) : (
                             <CgPlayButtonO size="35px" />
@@ -197,7 +225,31 @@ const Player = () => {
                     </span>
                 </div>
             </div>
-            <div className="w-[30%]">Something</div>
+
+            <div className="w-[30%] flex items-center justify-end gap-8 p-4 cursor-pointer">
+                <span onClick={handleToggleVolume}>
+                    {toggleVolume ? (
+                        <HiVolumeUp size={20} />
+                    ) : (
+                        <HiVolumeOff size={20} />
+                    )}
+                </span>
+                <input
+                    className="cursor-pointer bg-red-500"
+                    type="range"
+                    min={0}
+                    max={100}
+                    step={1}
+                    value={volume}
+                    onChange={handleChangeVolumn}
+                />
+                <span
+                    className="cursor-pointer"
+                    onClick={() => setShowRightBar((prev) => !prev)}
+                >
+                    <BsMusicNoteList size={20} />
+                </span>
+            </div>
         </div>
     )
 }
