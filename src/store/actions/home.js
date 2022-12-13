@@ -4,6 +4,7 @@ import actionType from "./actionTypes"
 export const getHome = () => async (dispatch) => {
     try {
         const response = await apis.apiGetHome()
+        console.log("aaa: ", response.data.data.items)
         if (response?.data.err === 0) {
             dispatch({
                 type: actionType.GET_HOME,

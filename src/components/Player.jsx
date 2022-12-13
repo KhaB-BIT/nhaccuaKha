@@ -21,7 +21,7 @@ const Player = ({ setShowRightBar }) => {
     const [audio, setAudio] = useState(new Audio())
     const [currentSecond, setCurrentSecond] = useState(0)
     const [isLoadedSource, setIsLoadSource] = useState(false)
-    const [volume, setVolume] = useState(100)
+    const [volume, setVolume] = useState(80)
     const [toggleVolume, setToggleVolume] = useState(true)
     const thumbRef = useRef()
     const trackRef = useRef()
@@ -52,6 +52,8 @@ const Player = ({ setShowRightBar }) => {
         audio.pause()
         audio.load()
         audio.currentTime = 0
+
+        interval && clearInterval(interval)
         if (isPlaying) {
             audio.play()
             interval = setInterval(() => {
@@ -66,6 +68,29 @@ const Player = ({ setShowRightBar }) => {
             }, 1000)
         }
     }, [audio])
+
+    useEffect(() => {
+        interval && clearInterval(interval)
+        if (isPlaying) {
+            audio.play()
+            interval = setInterval(() => {
+                let percent =
+                    Math.round(
+                        (audio.currentTime * 10000) / songInfo?.duration
+                    ) / 100
+                if (thumbRef) {
+                    thumbRef.current.style.cssText = `right: ${100 - percent}%`
+                }
+                setCurrentSecond(Math.round(audio.currentTime))
+            }, 1000)
+        }
+    }, [isPlaying])
+
+    useEffect(() => {
+        if (currentSecond === songInfo?.duration) {
+            dispatch(actions.play(false))
+        }
+    }, [currentSecond])
 
     const handlePlayMusic = () => {
         if (isPlaying) {
@@ -139,7 +164,7 @@ const Player = ({ setShowRightBar }) => {
             audio.volume = 0
         } else {
             setVolume(100)
-            audio.volume = 1
+            audio.volume = 0.8
         }
         setToggleVolume((prev) => !prev)
     }
@@ -226,8 +251,8 @@ const Player = ({ setShowRightBar }) => {
                 </div>
             </div>
 
-            <div className="w-[30%] flex items-center justify-end gap-8 p-4 cursor-pointer">
-                <span onClick={handleToggleVolume}>
+            <div className="w-[30%] flex items-center justify-end gap-8 p-4 ">
+                <span onClick={handleToggleVolume} className="cursor-pointer">
                     {toggleVolume ? (
                         <HiVolumeUp size={20} />
                     ) : (

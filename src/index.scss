@@ -51,3 +51,26 @@ body {
     background: gray;
     border-radius: 10px;
 }
+
+//input range
+input[type="range"] {
+    overflow: hidden;
+    width: 120px;
+    -webkit-appearance: none;
+    border-radius: 5px;
+    background-color: white;
+}
+
+input[type="range"]::-webkit-slider-runnable-track {
+    height: 6px;
+    -webkit-appearance: none;
+    color: green;
+}
+
+input[type="range"]::-webkit-slider-thumb {
+    width: 6px;
+    -webkit-appearance: none;
+    height: 6px;
+    background: green;
+    box-shadow: -80px 0 0 80px green;
+}

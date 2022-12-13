@@ -1,5 +1,5 @@
 import React from "react"
-import { useDispatch, useSelector } from "react-redux"
+import { useDispatch } from "react-redux"
 import { useNavigate } from "react-router-dom"
 import { Navigation, Autoplay } from "swiper"
 import "swiper/css"
@@ -7,8 +7,7 @@ import "swiper/css/navigation"
 import { Swiper, SwiperSlide } from "swiper/react"
 import * as actions from "../store/actions"
 
-const Slider = () => {
-    const { banner } = useSelector((state) => state.app)
+const Slider = ({ data }) => {
     const dispatch = useDispatch()
     const navigate = useNavigate()
 
@@ -37,7 +36,7 @@ const Slider = () => {
                 navigation
                 autoplay
             >
-                {banner.map((item, index) => {
+                {data?.map((item, index) => {
                     return (
                         <SwiperSlide key={index} className="cursor-pointer">
                             <img
