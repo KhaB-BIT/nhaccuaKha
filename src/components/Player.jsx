@@ -14,9 +14,7 @@ let interval
 
 const Player = () => {
     const dispatch = useDispatch()
-    const { curSongId, isPlaying, atAlbum } = useSelector(
-        (state) => state.music
-    )
+    const { curSongId, isPlaying, songs } = useSelector((state) => state.music)
     const [songInfo, setSongInfo] = useState(null)
     const [audio, setAudio] = useState(new Audio())
     const [currentSecond, setCurrentSecond] = useState(0)
@@ -70,7 +68,45 @@ const Player = () => {
         }
     }
 
-    const handleNextSong = () => {}
+    const handleNextSong = () => {
+        if (songs) {
+            let currentSongIndex
+            songs?.forEach((item, index) => {
+                if (item.encodeId === curSongId) currentSongIndex = index
+            })
+            //end of list
+            if (currentSongIndex !== songs?.length - 1) {
+                dispatch(
+                    actions.setCurSongId(
+                        songs[currentSongIndex + 1].encodeId || 0
+                    )
+                )
+            } else {
+                dispatch(actions.setCurSongId(songs[0].encodeId || 0))
+            }
+        }
+    }
+
+    const handlePrevSong = () => {
+        if (songs) {
+            let currentSongIndex
+            songs?.forEach((item, index) => {
+                if (item.encodeId === curSongId) currentSongIndex = index
+            })
+            //start of list
+            if (currentSongIndex === 0) {
+                dispatch(
+                    actions.setCurSongId(songs[songs.length - 1].encodeId) || 0
+                )
+            } else {
+                dispatch(
+                    actions.setCurSongId(
+                        songs[currentSongIndex - 1].encodeId || 0
+                    )
+                )
+            }
+        }
+    }
 
     const handleProgressBar = (e) => {
         const trackRect = trackRef.current.getBoundingClientRect()
@@ -111,7 +147,11 @@ const Player = () => {
                     >
                         <BsShuffle size="20px" />
                     </span>
-                    <span title="Bài hát trước" className="cursor-pointer">
+                    <span
+                        title="Bài hát trước"
+                        className={songs ? "cursor-pointer" : "text-gray-500"}
+                        onClick={songs && handlePrevSong}
+                    >
                         <TbPlayerSkipBack size="20px" />
                     </span>
                     <span
@@ -126,9 +166,9 @@ const Player = () => {
                         )}
                     </span>
                     <span
-                        onClick={handleNextSong}
+                        onClick={songs && handleNextSong}
                         title="Bài hát tiếp theo"
-                        className={atAlbum ? "cursor-pointer" : "text-gray-500"}
+                        className={songs ? "cursor-pointer" : "text-gray-500"}
                     >
                         <TbPlayerSkipForward size="20px" />
                     </span>

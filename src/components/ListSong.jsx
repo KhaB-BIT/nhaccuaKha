@@ -19,16 +19,8 @@ const ListSong = () => {
                 return (
                     <div
                         key={index}
-                        onClick={() =>
-                            item.isWorldWide
-                                ? handleClickListAlbum(item.encodeId)
-                                : ""
-                        }
-                        className={`flex justify-between items-center py-3 border-t border-t-gray-600 ${
-                            item.isWorldWide
-                                ? "cursor-pointer hover:bg-gray-600"
-                                : "cursor-not-allowed"
-                        } `}
+                        onClick={() => handleClickListAlbum(item.encodeId)}
+                        className="flex justify-between items-center py-3 border-t border-t-gray-600 cursor-pointer hover:bg-gray-600"
                     >
                         <div className="flex items-center gap-5 w-[50%]">
                             <img

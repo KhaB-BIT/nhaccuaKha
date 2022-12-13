@@ -17,12 +17,14 @@ const Slider = () => {
             dispatch(actions.setCurSongId(item.encodeId))
             dispatch(actions.play(true))
             dispatch(actions.playAlbum(false))
+            dispatch(actions.setPlayList(null))
         }
         if (item?.type === 4) {
             const path = item?.link?.split(".")[0]
             navigate(path)
         } else {
             dispatch(actions.playAlbum(false))
+            dispatch(actions.setPlayList(null))
         }
     }
 

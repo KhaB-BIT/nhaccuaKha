@@ -4,7 +4,7 @@ const initState = {
     curSongId: null,
     isPlaying: false,
     atAlbum: false,
-    songs: [],
+    songs: null,
 }
 
 const musicReducer = (state = initState, action) => {
@@ -27,7 +27,7 @@ const musicReducer = (state = initState, action) => {
         case actionType.PLAY_LIST:
             return {
                 ...state,
-                songs: action.songs,
+                songs: action.songs || null,
             }
 
         default:
