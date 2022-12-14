@@ -7,6 +7,7 @@ const initState = {
     top100: {},
     xone: {},
     newMusic: {},
+    loading: true,
 }
 
 const appReducer = (state = initState, action) => {
@@ -14,6 +15,7 @@ const appReducer = (state = initState, action) => {
         case actionType.GET_HOME:
             return {
                 ...state,
+                loading: false,
                 banner:
                     action.homeData?.find(
                         (item) => item.sectionId === "hSlider"

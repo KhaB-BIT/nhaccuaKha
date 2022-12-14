@@ -3,7 +3,7 @@ import { RotatingLines } from "react-loader-spinner"
 
 const SongLoading = () => {
     return (
-        <div className="border border-[3px] rounded-full w-[35px] h-[35px] flex items-center justify-center">
+        <div className="border-[3px] rounded-full w-[35px] h-[35px] flex items-center justify-center">
             <RotatingLines
                 strokeColor="grey"
                 strokeWidth="5"

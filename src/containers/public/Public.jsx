@@ -1,27 +1,26 @@
-import React, { useState } from "react"
+import React from "react"
 import { Outlet } from "react-router-dom"
-import { Header, Player, SidebarLeft, SidebarRight } from "../../components"
+import { Header, Player, SidebarLeft } from "../../components"
 
 const Public = () => {
-    const [showRightBar, setShowRightBar] = useState(true)
     return (
         <div className="overflow-y-auto h-screen">
-            <div className="w-full flex">
-                <div className="w-[240px]">
+            <div className="w-full flex relative">
+                <div className="w-[240px] fixed top-0 bottom-0 left-0">
                     <SidebarLeft />
                 </div>
-                <div className="flex-auto">
+                <div className="w-[calc(100vw_-_240px)] absolute left-[240px]">
                     <Header />
                     <Outlet />
                 </div>
-                {showRightBar && (
-                    <div className="w-[330px] hidden laptop:block animate-slide-left">
+                {/* {showRightBar && (
+                    <div className="w-[330px] hidden laptop:block animate-slide-left fixed top-0 bottom-0 right-0">
                         <SidebarRight />
                     </div>
-                )}
+                )} */}
             </div>
             <div className="absolute bottom-0 w-full">
-                <Player setShowRightBar={setShowRightBar} />
+                <Player />
             </div>
         </div>
     )

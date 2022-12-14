@@ -5,7 +5,6 @@ import { Album, Home, Login, Public } from "./containers/public"
 import * as actions from "./store/actions"
 import path from "./ultis/path"
 import { ToastContainer } from "react-toastify"
-
 function App() {
     const dispatch = useDispatch()
 

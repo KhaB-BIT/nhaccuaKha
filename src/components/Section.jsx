@@ -1,15 +1,28 @@
 import React from "react"
+import { Navigate, useNavigate } from "react-router-dom"
 
 const Section = ({ data, title }) => {
+    const navigate = useNavigate()
+    const handleClickAlbum = (item) => {
+        const path = item.link.split(".")[0]
+        navigate(path)
+    }
+
     return (
         <div className="px-5">
-            <h1 className="my-10 text-2xl font-bold">{data?.title || title}</h1>
+            <h1 className="my-10 text-2xl font-boldb">
+                {data?.title || title}
+            </h1>
             <div className="flex justify-between">
                 {data?.items
                     ?.filter((item, index) => index <= 4)
                     .map((item) => {
                         return (
-                            <div key={item.encodeId} className="w-[210px]">
+                            <div
+                                key={item.encodeId}
+                                className="w-[220px]"
+                                onClick={() => handleClickAlbum(item)}
+                            >
                                 <div className="rounded-lg cursor-pointer hover:bg-overlay-30">
                                     <img
                                         src={item.thumbnailM}

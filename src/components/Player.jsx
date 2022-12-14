@@ -14,7 +14,7 @@ import { HiVolumeOff, HiVolumeUp } from "react-icons/hi"
 const { AiOutlineHeart, FiMoreHorizontal } = icons
 let interval
 
-const Player = ({ setShowRightBar }) => {
+const Player = () => {
     const dispatch = useDispatch()
     const { curSongId, isPlaying, songs } = useSelector((state) => state.music)
     const [songInfo, setSongInfo] = useState(null)
@@ -242,7 +242,7 @@ const Player = ({ setShowRightBar }) => {
                     >
                         <div
                             ref={thumbRef}
-                            className="bg-green-600 h-full rounded-md absolute left-0"
+                            className="bg-[#008000] h-full rounded-md absolute left-0"
                         ></div>
                     </div>
                     <span>
@@ -260,7 +260,7 @@ const Player = ({ setShowRightBar }) => {
                     )}
                 </span>
                 <input
-                    className="cursor-pointer bg-red-500"
+                    className="cursor-pointer"
                     type="range"
                     min={0}
                     max={100}
@@ -268,10 +268,7 @@ const Player = ({ setShowRightBar }) => {
                     value={volume}
                     onChange={handleChangeVolumn}
                 />
-                <span
-                    className="cursor-pointer"
-                    onClick={() => setShowRightBar((prev) => !prev)}
-                >
+                <span className="">
                     <BsMusicNoteList size={20} />
                 </span>
             </div>
