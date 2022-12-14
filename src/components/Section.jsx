@@ -9,10 +9,13 @@ const Section = ({ data, title }) => {
     }
 
     return (
-        <div className="px-5">
-            <h1 className="my-10 text-2xl font-boldb">
-                {data?.title || title}
-            </h1>
+        <div className="">
+            <div className="flex justify-between items-end my-10">
+                <span className="text-2xl font-boldb">
+                    {data?.title || title}
+                </span>
+                <span>Tất cả</span>
+            </div>
             <div className="flex justify-between">
                 {data?.items
                     ?.filter((item, index) => index <= 4)

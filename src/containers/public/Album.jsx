@@ -27,6 +27,7 @@ const Album = () => {
         }
         fetchDataPlaylist()
         setIsLoading(false)
+        // eslint-disable-next-line react-hooks/exhaustive-deps
     }, [pid])
 
     return (
@@ -35,10 +36,10 @@ const Album = () => {
                 <Loading />
             ) : (
                 <div className="flex pl-10">
-                    <div className="w-[30%]">
+                    <div className="w-[30%] pr-5">
                         <div
                             ref={cdRef}
-                            className="overflow-hidden w-[320px] h-[320px] relative"
+                            className="overflow-hidden h-[320px] relative flex justify-center"
                         >
                             <img
                                 src={dataAlbum?.thumbnailM}

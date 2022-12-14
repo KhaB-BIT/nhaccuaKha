@@ -10,6 +10,7 @@ import * as actions from "../store/actions"
 import moment from "moment"
 import SongLoading from "./SongLoading"
 import { HiVolumeOff, HiVolumeUp } from "react-icons/hi"
+import { Audio as AudioPlaying } from "react-loader-spinner"
 
 const { AiOutlineHeart, FiMoreHorizontal } = icons
 let interval
@@ -172,12 +173,25 @@ const Player = () => {
     return (
         <div className=" flex h-[90px] bg-[#170f23] shadow-myShadow">
             <div className="w-[30%] flex gap-4 items-center p-4">
-                <div>
+                <div className="relative">
                     <img
                         src={songInfo?.thumbnail}
                         alt="thumbnail"
                         className="w-[64px] h-[64px] rounded-md"
                     />
+                    {isPlaying && (
+                        <div className="absolute bottom-0 left-1/2 -translate-x-1/2">
+                            <AudioPlaying
+                                height="50"
+                                width="40"
+                                color="#fff"
+                                ariaLabel="audio-loading"
+                                wrapperStyle={{}}
+                                wrapperClass="wrapper-class"
+                                visible={true}
+                            />
+                        </div>
+                    )}
                 </div>
                 <div>
                     <h4>{songInfo?.title}</h4>

@@ -8,6 +8,7 @@ const initState = {
     xone: {},
     newMusic: {},
     loading: true,
+    newRelease: {},
 }
 
 const appReducer = (state = initState, action) => {
@@ -39,6 +40,10 @@ const appReducer = (state = initState, action) => {
                 newMusic:
                     action.homeData?.find(
                         (item) => item.sectionId === "hAlbum"
+                    ) || {},
+                newRelease:
+                    action.homeData?.find(
+                        (item) => item.sectionType === "new-release"
                     ) || {},
             }
         default:
