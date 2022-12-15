@@ -1,6 +1,7 @@
 import { useSelector } from "react-redux"
 import { Slider, Section, Loading } from "../../components"
 import ListNewRelease from "../../components/ListNewRelease"
+import WeekChart from "../../components/WeekChart"
 
 const Home = () => {
     const {
@@ -12,6 +13,7 @@ const Home = () => {
         xone,
         newMusic,
         newRelease,
+        weekChart,
     } = useSelector((state) => state.app)
 
     return (
@@ -23,6 +25,7 @@ const Home = () => {
                     <Slider data={banner} />
                     <ListNewRelease data={newRelease} />
                     <Section data={friday} />
+                    <WeekChart data={weekChart} />
                     <Section data={newSongEveryday} />
                     <Section data={top100} />
                     <Section data={xone} />

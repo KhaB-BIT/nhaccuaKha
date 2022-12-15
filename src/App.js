@@ -5,6 +5,7 @@ import { Album, Home, Login, Public } from "./containers/public"
 import * as actions from "./store/actions"
 import path from "./ultis/path"
 import { ToastContainer } from "react-toastify"
+import WeekRank from "./components/WeekRank"
 function App() {
     const dispatch = useDispatch()
 
@@ -26,6 +27,10 @@ function App() {
                         <Route
                             path={path.PLAYLIST__TITLE__PID}
                             element={<Album />}
+                        />
+                        <Route
+                            path={path.WEEKRANK__TITLE__PID}
+                            element={<WeekRank />}
                         />
                         <Route path={path.STAR} element={<Home />} />
                     </Route>

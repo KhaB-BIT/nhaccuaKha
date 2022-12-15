@@ -1,3 +1,4 @@
+/* eslint-disable react-hooks/exhaustive-deps */
 import React, { useEffect, useRef, useState } from "react"
 import { useParams } from "react-router-dom"
 import * as apis from "../../apis"
@@ -27,7 +28,6 @@ const Album = () => {
         }
         fetchDataPlaylist()
         setIsLoading(false)
-        // eslint-disable-next-line react-hooks/exhaustive-deps
     }, [pid])
 
     return (

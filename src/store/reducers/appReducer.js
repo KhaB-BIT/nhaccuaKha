@@ -9,6 +9,8 @@ const initState = {
     newMusic: {},
     loading: true,
     newRelease: {},
+    weekChart: {},
+    zingChart: {},
 }
 
 const appReducer = (state = initState, action) => {
@@ -45,6 +47,13 @@ const appReducer = (state = initState, action) => {
                     action.homeData?.find(
                         (item) => item.sectionType === "new-release"
                     ) || {},
+                weekChart:
+                    action.homeData?.find(
+                        (item) => item.sectionType === "weekChart"
+                    ) || {},
+                zingChart:
+                    action.homeData?.find((item) => item.sectionId === "hZC") ||
+                    {},
             }
         default:
             return state

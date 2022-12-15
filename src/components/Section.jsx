@@ -26,11 +26,11 @@ const Section = ({ data, title }) => {
                                 className="w-[220px]"
                                 onClick={() => handleClickAlbum(item)}
                             >
-                                <div className="rounded-lg cursor-pointer hover:bg-overlay-30">
+                                <div className="overflow-hidden rounded-lg cursor-pointer hover:opacity-60">
                                     <img
                                         src={item.thumbnailM}
                                         alt="abc"
-                                        className="rounded-lg"
+                                        className="rounded-lg hover:scale-110 transition-all duration-300 ease-linear"
                                     />
                                 </div>
                                 {data.sectionId === "hAlbum" ? (
