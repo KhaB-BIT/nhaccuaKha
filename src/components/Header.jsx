@@ -1,6 +1,6 @@
 import React from "react"
 import icons from "../ultis/icons"
-import Search from "./Search"
+import SearchInput from "./SearchInput"
 
 const { HiArrowNarrowLeft, HiArrowNarrowRight } = icons
 
@@ -16,7 +16,7 @@ const Header = () => {
                         <HiArrowNarrowRight size="24px" color="gray" />
                     </span>
                 </div>
-                <Search />
+                <SearchInput />
             </div>
             <div>Login</div>
         </div>

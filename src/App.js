@@ -1,7 +1,15 @@
 import { useEffect } from "react"
 import { useDispatch } from "react-redux"
 import { Route, Routes } from "react-router-dom"
-import { Album, Home, Login, Public } from "./containers/public"
+import {
+    Album,
+    Home,
+    Login,
+    Public,
+    Search,
+    SearchSongs,
+    SearchAll,
+} from "./containers/public"
 import * as actions from "./store/actions"
 import path from "./ultis/path"
 import { ToastContainer } from "react-toastify"
@@ -32,6 +40,17 @@ function App() {
                             path={path.WEEKRANK__TITLE__PID}
                             element={<WeekRank />}
                         />
+                        <Route path={path.SEARCH} element={<Search />}>
+                            <Route
+                                path={path.SEARCH_ALL}
+                                element={<SearchAll />}
+                            />
+                            <Route
+                                path={path.SEARCH_SONG}
+                                element={<SearchSongs />}
+                            />
+                        </Route>
+
                         <Route path={path.STAR} element={<Home />} />
                     </Route>
                 </Routes>

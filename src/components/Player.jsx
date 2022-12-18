@@ -1,3 +1,4 @@
+/* eslint-disable react-hooks/exhaustive-deps */
 import React, { useEffect, useRef, useState } from "react"
 import { TbPlayerSkipBack, TbPlayerSkipForward } from "react-icons/tb"
 import { useDispatch, useSelector } from "react-redux"

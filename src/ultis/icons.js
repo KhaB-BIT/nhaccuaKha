@@ -15,6 +15,7 @@ import {
     AiOutlineArrowRight,
     AiFillHeart,
     AiOutlineHeart,
+    AiOutlineFileSearch,
 } from "react-icons/ai"
 import { FiSearch } from "react-icons/fi"
 import {
@@ -51,6 +52,7 @@ const icons = {
     BsDot,
     FiMoreHorizontal,
     FaRandom,
+    AiOutlineFileSearch,
 }
 
 export default icons

@@ -3,7 +3,6 @@ import { Link } from "react-router-dom"
 import ZingChart from "./ZingChart"
 
 const WeekChart = ({ data }) => {
-    console.log(data)
     return (
         <div className="my-10">
             <ZingChart />

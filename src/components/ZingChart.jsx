@@ -1,3 +1,4 @@
+/* eslint-disable no-unused-vars */
 import React, { memo, useEffect, useState } from "react"
 import bg from "../assets/bg-chart.jpg"
 import { Line } from "react-chartjs-2"
@@ -7,7 +8,7 @@ import { Chart } from "chart.js/auto"
 const ZingChart = () => {
     const [data, setData] = useState(null)
     const { zingChart } = useSelector((state) => state.app)
-    console.log(zingChart)
+
     const options = {
         responsive: true,
         pointRadius: 0,
@@ -75,7 +76,18 @@ const ZingChart = () => {
                                     key={index}
                                     className="flex items-center gap-4 p-3 bg-[rgba(0,0,0,0.2)] hover:bg-[rgba(255,255,255,0.1)] m-4 rounded-md"
                                 >
-                                    <span className="text-3xl font-bold number-rank-zingchart">
+                                    <span
+                                        className="text-3xl font-bold number-rank-zingchart Webkit"
+                                        style={{
+                                            WebkitTextStroke: `1px ${
+                                                index === 0
+                                                    ? "#50e3c2"
+                                                    : index === 1
+                                                    ? "#4a90e2"
+                                                    : "#e35050"
+                                            }`,
+                                        }}
+                                    >
                                         {index + 1}
                                     </span>
                                     <img
