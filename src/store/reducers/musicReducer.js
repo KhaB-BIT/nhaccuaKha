@@ -5,6 +5,7 @@ const initState = {
     isPlaying: false,
     atAlbum: false,
     songs: null,
+    searchData: {},
 }
 
 const musicReducer = (state = initState, action) => {
@@ -29,7 +30,11 @@ const musicReducer = (state = initState, action) => {
                 ...state,
                 songs: action.songs || null,
             }
-
+        case actionType.SEARCH:
+            return {
+                ...state,
+                searchData: action.data || null,
+            }
         default:
             return state
     }

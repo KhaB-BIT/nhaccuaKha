@@ -1,13 +1,18 @@
 import React, { useEffect, useRef, useState } from "react"
 import { MdClear } from "react-icons/md"
 import icons from "../ultis/icons"
-import * as apis from "../apis"
+import * as actions from "../store/actions"
+import { useDispatch } from "react-redux"
+import { useNavigate } from "react-router-dom"
+import path from "../ultis/path"
 
 const { FiSearch } = icons
 
 const SearchInput = () => {
     const [keyword, setKeyword] = useState("")
     const inputRef = useRef()
+    const dispatch = useDispatch()
+    const navigate = useNavigate()
 
     const handleChangeValue = (e) => {
         setKeyword(e.target.value)
@@ -20,8 +25,8 @@ const SearchInput = () => {
 
     const handleSearch = async (e) => {
         if (e.key === "Enter") {
-            const response = await apis.apiSearch(keyword)
-            console.log(response)
+            dispatch(actions.search(keyword))
+            navigate(`/${path.SEARCH}/${path.SEARCH_ALL}`)
         }
     }
 

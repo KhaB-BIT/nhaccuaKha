@@ -3,8 +3,7 @@ import { Outlet } from "react-router-dom"
 
 const Search = () => {
     return (
-        <div>
-            Search
+        <div className="p-11">
             <Outlet />
         </div>
     )
