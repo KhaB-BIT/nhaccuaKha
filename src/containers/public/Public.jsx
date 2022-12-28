@@ -1,8 +1,10 @@
 import React from "react"
+import { useSelector } from "react-redux"
 import { Outlet } from "react-router-dom"
 import { Header, Player, SidebarLeft } from "../../components"
 
 const Public = () => {
+    const { curSongId } = useSelector((state) => state.music)
     return (
         <div className="overflow-y-auto h-screen">
             <div className="w-full flex relative">
@@ -19,8 +21,9 @@ const Public = () => {
                     </div>
                 )} */}
             </div>
+
             <div className="absolute bottom-0 w-full">
-                <Player />
+                {curSongId && <Player />}
             </div>
         </div>
     )

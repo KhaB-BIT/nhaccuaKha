@@ -12,6 +12,8 @@ import moment from "moment"
 import SongLoading from "./SongLoading"
 import { HiVolumeOff, HiVolumeUp } from "react-icons/hi"
 import { Audio as AudioPlaying } from "react-loader-spinner"
+import { Image } from "@chakra-ui/react"
+import fallback from "../assets/logoK.png"
 
 const { AiOutlineHeart, FiMoreHorizontal } = icons
 let interval
@@ -175,10 +177,11 @@ const Player = () => {
         <div className=" flex h-[90px] bg-[#170f23] shadow-myShadow">
             <div className="w-[30%] flex gap-4 items-center p-4">
                 <div className="relative">
-                    <img
+                    <Image
                         src={songInfo?.thumbnail}
                         alt="thumbnail"
                         className="w-[64px] h-[64px] rounded-md"
+                        fallbackSrc={fallback}
                     />
                     {isPlaying && (
                         <div className="absolute bottom-0 left-1/2 -translate-x-1/2">
@@ -261,7 +264,10 @@ const Player = () => {
                         ></div>
                     </div>
                     <span>
-                        {moment.utc(songInfo?.duration * 1000).format("mm:ss")}
+                        {songInfo?.duration &&
+                            moment
+                                .utc(songInfo?.duration * 1000)
+                                .format("mm:ss")}
                     </span>
                 </div>
             </div>

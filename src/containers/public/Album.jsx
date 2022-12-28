@@ -9,6 +9,8 @@ import * as actions from "../../store/actions"
 import AudioPlaying from "../../components/AudioPlaying"
 import { Loading } from "../../components"
 import ListSong from "../../components/ListSong"
+import { Image } from "@chakra-ui/react"
+import fallback from "../../assets/zingfallback.png"
 
 const Album = () => {
     const { pid } = useParams()
@@ -41,7 +43,7 @@ const Album = () => {
                             ref={cdRef}
                             className="overflow-hidden h-[320px] relative flex justify-center"
                         >
-                            <img
+                            <Image
                                 src={dataAlbum?.thumbnailM}
                                 alt="album"
                                 className={`hover:scale-110 ${
@@ -49,6 +51,7 @@ const Album = () => {
                                         ? "rounded-full animate-spin-start"
                                         : "rounded-md animate-spin-end"
                                 }`}
+                                fallbackSrc={fallback}
                             />
                             <div
                                 className={`absolute top-0 left-0 right-0 bottom-0 hover:bg-overlay-30 ${
